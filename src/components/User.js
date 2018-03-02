@@ -6,12 +6,19 @@ export default class User extends Component {
 	static propTypes = {
 		name: PropTypes.string.isRequired,
 		handleLogin: PropTypes.func.isRequired,
-		error: PropTypes.string.isRequired
+		checkLoginStatus: PropTypes.func.isRequired,
+		error: PropTypes.string.isRequired,
+		fetching: PropTypes.bool.isRequired
+	}
+
+
+	componentWillMount() {
+		this.props.checkLoginStatus();
 	}
 
 
 	render() {
-		const { name, error } = this.props;
+		const { name, error, fetching } = this.props;
 		let template;
 
 		if (name) {
@@ -22,7 +29,10 @@ export default class User extends Component {
 
 		return (
 			<div className="ib user">
-				{ template }
+				{ fetching ?
+					'Загрузка...' :
+					template
+				}
 				{ error ? <p>Не получилось :(<br /> Попробуйте еще раз</p> : '' }
 			</div>
 		);
