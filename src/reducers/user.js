@@ -5,7 +5,7 @@ import {
 
 
 const initialState = {
-	name: 'Аноним',
+	name: '',
 	error: ''
 }
 
