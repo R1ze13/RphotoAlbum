@@ -16,7 +16,7 @@ export function handleLogin() {
 			type: LOGIN_REQUEST
 		});
 
-		VK.auth.login(r => {
+		VK.Auth.login(r => {
 			if (r.session) {
 				let username = r.session.user.first_name;
 
