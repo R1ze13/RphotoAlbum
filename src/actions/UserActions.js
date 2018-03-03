@@ -2,7 +2,9 @@ import {
 	LOGIN_REQUEST,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
-	CHECK_LOGIN_STATUS
+	CHECK_LOGIN_STATUS,
+	CHECK_LOGIN_STATUS_FAIL,
+	LOGOUT_SUCCESS
 } from '../constants/User';
 
 const VK = window.VK;
@@ -32,7 +34,20 @@ export function handleLogin() {
 					payload: new Error('Ошибка авторизации')
 				});
 			}
-		}, 262144);
+		}, 4);
+
+	}
+}
+
+
+export function handleLogout() {
+	return function(dispatch) {
+
+		VK.Auth.logout(r => {
+			dispatch({
+				type: LOGOUT_SUCCESS
+			})
+		});
 
 	}
 }
@@ -58,6 +73,11 @@ export function checkLoginStatus() {
 						type: LOGIN_SUCCESS,
 						payload: name
 					});
+				});
+			} else {
+				dispatch({
+					type: CHECK_LOGIN_STATUS_FAIL,
+					payload: ''
 				});
 			}
 		});

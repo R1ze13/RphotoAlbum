@@ -12,7 +12,7 @@ class App extends Component {
 	render() {
 		const { user, page } = this.props;
 		const { getPhotos } = this.props.pageActions;
-		const { handleLogin, checkLoginStatus } = this.props.userActions;
+		const { handleLogin, handleLogout, checkLoginStatus } = this.props.userActions;
 
 		return (
 			<div className="row">
@@ -21,10 +21,12 @@ class App extends Component {
 					photos={ page.photos }
 					getPhotos={ getPhotos }
 					fetching={ page.fetching }
+					error={ page.error }
 				/>
 				<User
 					name={ user.name }
 					handleLogin={ handleLogin }
+					handleLogout={ handleLogout }
 					checkLoginStatus={ checkLoginStatus }
 					error={ user.error }
 					fetching={ user.fetching }

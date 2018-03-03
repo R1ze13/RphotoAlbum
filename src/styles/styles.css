@@ -93,8 +93,14 @@ h3 {
 	display: inline-block;
 	margin: 10px 2px;
 	width: 130px;
+	text-align: center;
 }
 
 .error {
 	color: #FF0000;
+}
+
+img {
+	width: 100%;
+	display: block;
 }

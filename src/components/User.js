@@ -6,13 +6,16 @@ export default class User extends Component {
 	static propTypes = {
 		name: PropTypes.string.isRequired,
 		handleLogin: PropTypes.func.isRequired,
+		handleLogout: PropTypes.func.isRequired,
 		checkLoginStatus: PropTypes.func.isRequired,
 		error: PropTypes.string.isRequired,
 		fetching: PropTypes.bool.isRequired
 	}
 
 
-	componentWillMount() {
+	constructor(props) {
+		super(props);
+
 		this.props.checkLoginStatus();
 	}
 
@@ -22,7 +25,11 @@ export default class User extends Component {
 		let template;
 
 		if (name) {
-			template = <p>Привет, {name}</p>
+			template =
+				<div>
+					<p>Привет, {name}</p>
+					<button className="btn" type="button" onClick={ this.props.handleLogout }>Выйти</button>
+				</div>
 		} else {
 			template = <button className="btn" onClick={ this.props.handleLogin }>Войти</button>
 		}
