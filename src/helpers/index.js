@@ -48,6 +48,7 @@ export function getMorePhotos(offset, count, year, dispatch) {
 			if (offset <= r.response.count - count) {
 				offset += 200;
 				photosObj.photosArr = photosObj.photosArr.concat(r.response.items);
+				photosObj.photosArr.map(photo => photo.src = photo.sizes[photo.sizes.length - 1].src);
 				getMorePhotos(offset, count, year, dispatch);
 			} else {
 				let photos = makeYearPhotos(photosObj.photosArr, year);

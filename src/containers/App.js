@@ -11,7 +11,7 @@ import * as userActions from '../actions/UserActions';
 class App extends Component {
 	render() {
 		const { user, page } = this.props;
-		const { getPhotos } = this.props.pageActions;
+		const { getPhotos, openLightbox, closeLightbox, gotoSlide } = this.props.pageActions;
 		const { handleLogin, handleLogout, checkLoginStatus } = this.props.userActions;
 
 		return (
@@ -21,7 +21,12 @@ class App extends Component {
 					photos={ page.photos }
 					getPhotos={ getPhotos }
 					fetching={ page.fetching }
+					isLightboxOpen={ page.isLightboxOpen }
 					error={ page.error }
+					openLightbox={ openLightbox }
+					closeLightbox={ closeLightbox }
+					gotoSlide={ gotoSlide }
+					currentImage={ page.currentImage }
 				/>
 				<User
 					name={ user.name }
