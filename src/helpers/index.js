@@ -26,9 +26,23 @@ export function makeYearPhotos(photos, selectedYear) {
 
 
 export function getMorePhotos(offset, count, year, dispatch) {
-	const user_ids = VK.Auth.getSession().mid;
+	let user_ids;
+	VK.Auth.getLoginStatus(r => {
+		if (r.session) {
+			user_ids = r.session.mid;
+		} else {
+			dispatch({
+				type: GET_PHOTOS_FAIL,
+				error: true,
+				payload: new Error('Необходимо авторизоваться')
+			});
+		}
+	});
+
+	if (!user_ids) return;
+
 	VK.Api.call('photos.getAll', {
-		extended: true, v: 5.73, user_ids, count, offset
+		extended: true, v: 5.73, photo_sizes: true, user_ids, count, offset
 	}, r => {
 		try {
 			if (offset <= r.response.count - count) {

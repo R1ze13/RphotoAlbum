@@ -48,12 +48,10 @@ export default class Page extends Component {
 				{ fetching ?
 					'Загрузка...' :
 					photos.map((photo, idx) =>
-						photo.photo_1280 ?
 						<div key={ idx } className="photo">
-							<img src={ photo.photo_1280 } alt={ photo.text } />
+							<img src={ photo.sizes[photo.sizes.length - 1].src } alt={ photo.text } />
 							<p>{ photo.likes.count } ❤</p>
-						</div> :
-						''
+						</div>
 					)
 				}
 			</div>
