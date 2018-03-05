@@ -17,13 +17,14 @@ export default class Page extends Component {
 	constructor(props) {
 		super(props);
 
+		this.years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018];
 		this.yearBtnClickHandler = this.yearBtnClickHandler.bind(this);
 		this.init();
 	}
 
 
 	init() {
-		this.props.getPhotos(2018);
+		this.props.getPhotos(this.years[this.years.length - 1]);
 	}
 
 
@@ -38,9 +39,9 @@ export default class Page extends Component {
 		return (
 			<div className="ib page">
 				<div>
-					<button className="btn" onClick={ this.yearBtnClickHandler }>2016</button>{' '}
-					<button className="btn" onClick={ this.yearBtnClickHandler }>2017</button>{' '}
-					<button className="btn" onClick={ this.yearBtnClickHandler }>2018</button>
+					{
+						this.years.map((year, idx) => <button className="btn" key={ idx } onClick={ this.yearBtnClickHandler }>{ year }</button>)
+					}
 				</div>
 				<h3>{year} год [{photos.length}]</h3>
 				{ error ? <p className="error">{ error }</p> : '' }

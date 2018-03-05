@@ -92,7 +92,7 @@ h3 {
 .photo {
 	display: inline-block;
 	margin: 10px 2px;
-	width: 130px;
+	width: calc(20% - 20px);
 	text-align: center;
 }
 
