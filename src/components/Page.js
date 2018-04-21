@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Lightbox from 'react-images';
-
+import Masonry from 'react-masonry-component';
 
 
 export default class Page extends Component {
@@ -75,9 +75,24 @@ export default class Page extends Component {
 			currentImage
 		} = this.props;
 
+		const photoElems = photos.map((photo, idx) =>
+			<div
+				key={ photo.id }
+				data-index={ idx }
+				className="photo"
+				onClick={ this.photoClickHandler }
+			>
+				<img
+					src={ photo.sizes[photo.sizes.length - 1].src }
+					alt={ photo.text }
+				/>
+				<p>{ photo.likes.count } ❤</p>
+			</div>
+		);
+
 		return (
 			<div className="ib page">
-				<div>
+				<div className="page__buttons">
 					{
 						this.years.map((year, idx) => <button className="btn" key={ idx } onClick={ this.yearBtnClickHandler }>{ year }</button>)
 					}
@@ -86,20 +101,7 @@ export default class Page extends Component {
 				{ error ? <p className="error">{ error }</p> : '' }
 				{ fetching ?
 					'Загрузка...' :
-					photos.map((photo, idx) =>
-						<div
-							key={ idx }
-							data-index={ idx }
-							className="photo"
-							onClick={ this.photoClickHandler }
-						>
-							<img
-								src={ photo.sizes[photo.sizes.length - 1].src }
-								alt={ photo.text }
-							/>
-							<p>{ photo.likes.count } ❤</p>
-						</div>
-					)
+					<Masonry updateOnEachImageLoad={true}>{photoElems}</Masonry>
 				}
 				<Lightbox
 					images={photos}
